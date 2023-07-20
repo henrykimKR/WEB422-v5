@@ -38,7 +38,7 @@ export default function AdvancedSearch() {
     for (const prop in data) {
       setValue(prop, data[prop]);
     }
-  }, []);
+  }, [setValue]);
 
   const submitForm = (data) => {
     let queryString = "";

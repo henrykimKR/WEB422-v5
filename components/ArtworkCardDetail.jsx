@@ -3,8 +3,13 @@ import useSWR from "swr";
 import { useAtom } from "jotai";
 import { favouritesAtom } from "@/store";
 import { Button, Card } from "react-bootstrap";
+import Error from "next/error";
 
 export default function ArtworkCardDetail({ objectID }) {
+  const [favouritesList, setFavouritesList] = useAtom(favouritesAtom);
+  const [showAdded, setShowAdded] = useState(
+    favouritesList.includes(objectID) ? true : false
+  );
   const { data, error } = useSWR(
     objectID
       ? `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`
@@ -31,11 +36,6 @@ export default function ArtworkCardDetail({ objectID }) {
     dimensions,
     artistWikidata_URL,
   } = data;
-
-  const [favouritesList, setFavouritesList] = useAtom(favouritesAtom);
-  const [showAdded, setShowAdded] = useState(
-    favouritesList.includes(objectID) ? true : false
-  );
 
   const handleFavouritesClick = () => {
     if (showAdded) {
